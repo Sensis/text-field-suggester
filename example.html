@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Text Field Suggester Example</title>
+		<link rel="stylesheet" href="example-styles.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="src/text-field-suggester.js"></script>
+		
+		<script>
+			$(document).ready(function () {
+				var suggester;
+
+				function fetchSuggestions(textFieldValue, callback) {
+					var suggestions = [
+							{ label: 'Apple', icon: 'example-images/apple.png' },
+							{ label: 'Apricot', icon: null },
+							{ label: 'Pear', icon: null },
+							{ label: 'Banana', icon: 'example-images/banana.png' },
+							{ label: 'Grape', icon: 'example-images/grape.png' },
+							{ label: 'Grapefruit', icon: null },
+							{ label: 'Orange', icon: null },
+							{ label: 'Pineapple', icon: 'example-images/pineapple.png' },
+							{ label: 'Coconut', icon: null },
+							{ label: 'Lemon', icon: null }
+						],
+						filteredSuggestions = [],
+						i;
+
+					for (i = 0; i < suggestions.length; ++i) {
+						if (suggestions[i].label.toLowerCase().indexOf(textFieldValue.toLowerCase()) === 0)
+							filteredSuggestions.push(suggestions[i]);
+					}
+
+					callback(filteredSuggestions);
+				};
+
+				suggester = new Sensis.TextFieldSuggester('theTextField', '#theTextField', 6, fetchSuggestions);
+			});
+		</script>
+	</head>
+	<body>
+		<form autosuggest="off">
+			<input id="theTextField" type="text" name="theTextField" placeholder="Fruit">
+		</form>
+	</body>
+</html>

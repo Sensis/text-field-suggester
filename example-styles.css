@@ -1,0 +1,43 @@
+#theTextField {
+	border: 1px solid #CCC;
+	padding: 8px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+}
+
+.theTextFieldCompletion .suffix {
+	color: #AAA;
+}
+
+.theTextFieldSuggestions {
+	border: 1px solid #CCC;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	background: white;
+}
+
+.theTextFieldSuggestions .suggestion {
+	color: #555;
+	line-height: 24px;
+	padding: 0 8px;
+	cursor: default;
+}
+
+.theTextFieldSuggestions .suggestion .icon {
+	width: 14px;
+	margin-right: 6px;
+	display: inline-block;
+}
+
+.theTextFieldSuggestions .suggestion.suggested {
+	background: #DDD;
+}
+
+.theTextFieldSuggestions .suggestion.selected {
+	background: #666;
+	color: white;
+}
+
+.theTextFieldSuggestions .suggestion:hover {
+	background: #CCC;
+}
