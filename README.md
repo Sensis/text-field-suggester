@@ -5,7 +5,7 @@ JavaScript library providing automatic suggestion/completion support for text in
 
 Requires [jQuery](http://jquery.com/).
 
-See [example.html](//github.com/sensis/text-field-suggester/blob/master/example.html) for sample usage.
+See [example.html](//github.com/sensis/text-field-suggester/blob/master/example.html) for sample usage, or view a [live demo](http://sensis.github.com/text-field-suggester/example.html) of the same example.
 
 Tagged releases (minified and gzipped) can be found in the [downloads](//github.com/sensis/text-field-suggester/downloads).
 
