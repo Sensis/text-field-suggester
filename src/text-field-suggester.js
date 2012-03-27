@@ -159,8 +159,7 @@ if (typeof Sensis === 'undefined')
 	};
 
 	Sensis.TextFieldSuggester.prototype.createSuggestionList = function () {
-		var that = this,
-			list = $(document.createElement('ul')),
+		var list = $(document.createElement('ul')),
 			i,
 			item,
 			icon,
