@@ -35,10 +35,15 @@
 				};
 
 				suggester = new Sensis.TextFieldSuggester('theTextField', '#theTextField', 6, fetchSuggestions);
+
+				suggester.valueUpdated = function (value) {
+					$('.currentValue').text(value);
+				};
 			});
 		</script>
 	</head>
 	<body>
+		<p>The current value is: '<span class="currentValue"></span>'</p>
 		<form autosuggest="off">
 			<input id="theTextField" type="text" name="theTextField" placeholder="Fruit">
 		</form>

@@ -3,7 +3,8 @@ $(document).ready(function () {
 
 		var textField,
 			maxSuggestions = 4,		
-			suggester;
+			suggester,
+			currentValue = '';
 
 
 		function arrowDown() {
@@ -68,6 +69,21 @@ $(document).ready(function () {
 		textField = $('#theTextField');
 		suggester = new Sensis.TextFieldSuggester('theTextField', '#theTextField', maxSuggestions, fetchSuggestions);
 
+		suggester.valueUpdated = function (value) {
+			currentValue = value;
+		};
+
+
+		it('should invoke the valueUpdated callback when the text value is updated', function () {
+			runs(function () {
+				deleteText();
+				enterText('blah');
+			});
+
+			waitsFor(function () {
+				return currentValue === 'blah';
+			}, 1000);
+		});
 
 		describe('Input completion', function () {
 
