@@ -41,11 +41,21 @@ if (typeof Sensis === 'undefined')
 			that.updateSuggestions();
 		});
 
-		this.textField.keydown(function () {
-			var value = that.textField.val();
+		this.textField.keydown(function (e) {
+			var value;
 
-			if (value.length < that.lastValue.length)
-				that.updateCompletion();
+			// Enter key pressed
+			if (e.keyCode === 13) {
+				e.preventDefault();
+				that.cancelCompletion();
+			}
+
+			else {
+				value = that.textField.val();
+
+				if (value.length < that.lastValue.length)
+					that.updateCompletion();
+			}
 		});
 
 		this.textField.keyup(function (event) {
@@ -149,8 +159,7 @@ if (typeof Sensis === 'undefined')
 	};
 
 	Sensis.TextFieldSuggester.prototype.createSuggestionList = function () {
-		var that = this,
-			list = $(document.createElement('ul')),
+		var list = $(document.createElement('ul')),
 			i,
 			item,
 			icon,
