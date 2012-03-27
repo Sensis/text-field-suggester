@@ -27,6 +27,11 @@ $(document).ready(function () {
 			textField.trigger(new jQuery.Event('keyup', { keyCode: 8 }));
 		};
 
+		function pressEnter() {
+			textField.trigger(new jQuery.Event('keydown', { keyCode: 13 }));
+			textField.trigger(new jQuery.Event('keyup', { keyCode: 13 }));
+		};
+
 		function enterText(text) {
 			var code,
 				i;
@@ -159,6 +164,27 @@ $(document).ready(function () {
 				waitsFor(function () {
 					return textField.val() === 'apple';
 				}, 1000);
+			});
+
+			it('should cancel the completion when Enter is pressed in the text field', function () {
+				var suffix = $('.theTextFieldCompletion .suffix');
+
+				runs(function () {
+					deleteText();
+					enterText('ap');
+				});
+
+				waitsFor(function () {
+					return suffix.text() === 'ple';
+				});
+
+				runs(function () {
+					pressEnter();
+				});
+
+				waitsFor(function () {
+					return suffix.text() === '';
+				});
 			});
 		});
 
