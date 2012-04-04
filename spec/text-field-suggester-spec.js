@@ -339,6 +339,27 @@ $(document).ready(function () {
 				runs(function () { arrowUp() });
 				waitsFor(function () { return suggestionList.find('.suggestion.selected').length === 0 }, 1000);
 			});
+
+			it('should hide the suggestions when Enter is pressed in the text field', function () {
+				var items = suggestionList.find('.suggestion');
+
+				runs(function () {
+					deleteText();
+					enterText('ap');
+				});
+
+				waitsFor(function () {
+					return $(items[1]).css('display') === 'block' && $(items[2]).css('display') === 'none';
+				}, 1000);
+
+				runs(function () {
+					pressEnter();
+				});
+
+				waitsFor(function () {
+					return suggestionList.css('display') === 'none';
+				}, 1000);
+			});
 		});
 	});
 });

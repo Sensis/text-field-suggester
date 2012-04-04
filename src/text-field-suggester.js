@@ -48,6 +48,7 @@ if (typeof Sensis === 'undefined')
 			if (e.keyCode === 13) {
 				e.preventDefault();
 				that.cancelCompletion();
+				that.hideSuggestions();
 			}
 
 			else {
