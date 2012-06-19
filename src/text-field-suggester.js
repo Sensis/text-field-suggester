@@ -36,7 +36,7 @@ if (typeof Sensis === 'undefined')
 		});
 
 		this.textField.blur(function () {
-			if (that.textField.val() !== '')
+			if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
 				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			that.updateSuggestions();
 		});

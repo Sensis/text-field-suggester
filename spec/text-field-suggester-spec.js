@@ -166,6 +166,29 @@ $(document).ready(function () {
 				}, 1000);
 			});
 
+			it('should not set the text to the full completion if it isn\'t a prefix when the text field is blurred', function () {
+				var suffix = $('.theTextFieldCompletion .suffix');
+
+				runs(function () {
+					deleteText();
+					enterText('a');
+				});
+
+				waitsFor(function () {
+					return suffix.text() === 'pple';
+				});
+
+				runs(function () {
+					deleteText();
+					enterText('p');
+					textField.blur();
+				});
+
+				waitsFor(function () {
+					return textField.val() === 'p';
+				}, 1000);
+			});
+
 			it('should cancel the completion when Enter is pressed in the text field', function () {
 				var suffix = $('.theTextFieldCompletion .suffix');
 
