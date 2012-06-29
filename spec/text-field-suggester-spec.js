@@ -90,6 +90,41 @@ $(document).ready(function () {
 			}, 1000);
 		});
 
+		it('should update its position when reposition() is called', function () {
+			runs(function () {
+				deleteText();
+				enterText('a');
+			});
+
+			waitsFor(function () {
+				var suggestionList = $('.theTextFieldSuggestions');
+				return suggestionList.css('display') === 'block';
+			}, 1000);
+
+			runs(function () {
+				expect(suggester.completion.offset().left).toEqual(textField.offset().left + (textField.outerWidth() - textField.innerWidth()) / 2);
+				expect(suggester.completion.offset().top).toEqual(textField.offset().top + (textField.outerHeight() - textField.innerHeight()) / 2);
+				expect(suggester.completion.width()).toEqual(textField.outerWidth());
+				expect(suggester.completion.height()).toEqual(textField.outerHeight());
+				expect(suggester.suggestionList.offset().left).toEqual(textField.offset().left);
+				expect(suggester.suggestionList.offset().top).toEqual(textField.offset().top + textField.outerHeight());
+				expect(suggester.suggestionList.width()).toEqual(textField.width());
+
+				textField.css('margin-left', '10px');
+				textField.css('width', '128px');
+				textField.css('height', '32px');
+				suggester.reposition();
+
+				expect(suggester.completion.offset().left).toEqual(textField.offset().left + (textField.outerWidth() - textField.innerWidth()) / 2);
+				expect(suggester.completion.offset().top).toEqual(textField.offset().top + (textField.outerHeight() - textField.innerHeight()) / 2);
+				expect(suggester.completion.width()).toEqual(textField.outerWidth());
+				expect(suggester.completion.height()).toEqual(textField.outerHeight());
+				expect(suggester.suggestionList.offset().left).toEqual(textField.offset().left);
+				expect(suggester.suggestionList.offset().top).toEqual(textField.offset().top + textField.outerHeight());
+				expect(suggester.suggestionList.width()).toEqual(textField.width());
+			});
+		});
+
 		describe('Input completion', function () {
 
 			it('should have an element for displaying the automatically completed text', function () {

@@ -27,6 +27,7 @@ if (typeof Sensis === 'undefined')
 
 		$('body').append(this.completion, this.suggestionList);
 
+		this.reposition();
 		this.updateSuggestions();
 
 		this.textField.focus(function () {
@@ -130,10 +131,6 @@ if (typeof Sensis === 'undefined')
 		completion.addClass(this.name + 'Completion');
 		completion.css({
 			'position': 'absolute',
-			'top': (this.textField.offset().top + (this.textField.outerWidth() - this.textField.innerWidth()) / 2) + 'px',
-			'left': (this.textField.offset().left + (this.textField.outerHeight() - this.textField.innerHeight()) / 2) + 'px',
-			'width': this.textField.outerWidth() + 'px',
-			'height': this.textField.outerHeight() + 'px',
 			'padding': '0',
 			'margin': '0',
 			'font-family': this.textField.css('font-family'),
@@ -169,9 +166,6 @@ if (typeof Sensis === 'undefined')
 		list.addClass(this.name + 'Suggestions');
 		list.css({
 			'position': 'absolute',
-			'top': (this.textField.offset().top + this.textField.outerHeight()) + 'px',
-			'left': this.textField.offset().left + 'px',
-			'width': this.textField.width() + 'px',
 			'list-style': 'none',
 			'margin': '0',
 			'padding': '0'
@@ -227,6 +221,21 @@ if (typeof Sensis === 'undefined')
 			this.lastValueWithCompletion = value;
 			this.valueUpdated(value);
 		}
+	};
+
+	Sensis.TextFieldSuggester.prototype.reposition = function () {
+		this.completion.css({
+			'top': (this.textField.offset().top + (this.textField.outerWidth() - this.textField.innerWidth()) / 2) + 'px',
+			'left': (this.textField.offset().left + (this.textField.outerHeight() - this.textField.innerHeight()) / 2) + 'px',
+			'width': this.textField.outerWidth() + 'px',
+			'height': this.textField.outerHeight() + 'px'
+		});
+
+		this.suggestionList.css({
+			'top': (this.textField.offset().top + this.textField.outerHeight()) + 'px',
+			'left': this.textField.offset().left + 'px',
+			'width': this.textField.width() + 'px'
+		});
 	};
 
 	Sensis.TextFieldSuggester.prototype.showSuggestions = function () {
