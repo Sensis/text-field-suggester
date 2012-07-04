@@ -135,7 +135,9 @@ if (typeof Sensis === 'undefined')
 			'margin': '0',
 			'font-family': this.textField.css('font-family'),
 			'font-size': this.textField.css('font-size'),
-			'pointer-events': 'none'
+			'pointer-events': 'none',
+			'overflow': 'hidden',
+			'white-space': 'nowrap'
 		});
 
 		prefix.addClass('prefix');
