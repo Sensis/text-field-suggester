@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------------------*
+ * TextFieldSuggester
+ *
+ * JavaScript library providing automatic suggestion/completion support for
+ * text input fields.
+ *
+ * This project and its licensing terms can be found at:
+ * https://github.com/Sensis/text-field-suggester
+ *----------------------------------------------------------------------------*/
+
 if (typeof Sensis === 'undefined')
 	Sensis = {};
 
