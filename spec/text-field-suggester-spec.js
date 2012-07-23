@@ -104,7 +104,7 @@ $(document).ready(function () {
 			runs(function () {
 				expect(suggester.completion.offset().left).toEqual(textField.offset().left + (textField.outerWidth() - textField.innerWidth()) / 2);
 				expect(suggester.completion.offset().top).toEqual(textField.offset().top + (textField.outerHeight() - textField.innerHeight()) / 2);
-				expect(suggester.completion.width()).toEqual(textField.outerWidth());
+				expect(suggester.completion.width()).toEqual(textField.width());
 				expect(suggester.completion.height()).toEqual(textField.outerHeight());
 				expect(suggester.suggestionList.offset().left).toEqual(textField.offset().left);
 				expect(suggester.suggestionList.offset().top).toEqual(textField.offset().top + textField.outerHeight());
@@ -117,7 +117,7 @@ $(document).ready(function () {
 
 				expect(suggester.completion.offset().left).toEqual(textField.offset().left + (textField.outerWidth() - textField.innerWidth()) / 2);
 				expect(suggester.completion.offset().top).toEqual(textField.offset().top + (textField.outerHeight() - textField.innerHeight()) / 2);
-				expect(suggester.completion.width()).toEqual(textField.outerWidth());
+				expect(suggester.completion.width()).toEqual(textField.width());
 				expect(suggester.completion.height()).toEqual(textField.outerHeight());
 				expect(suggester.suggestionList.offset().left).toEqual(textField.offset().left);
 				expect(suggester.suggestionList.offset().top).toEqual(textField.offset().top + textField.outerHeight());

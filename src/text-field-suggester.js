@@ -240,7 +240,7 @@ if (typeof Sensis === 'undefined')
 		this.completion.css({
 			'top': (this.textField.offset().top + (this.textField.outerWidth() - this.textField.innerWidth()) / 2) + 'px',
 			'left': (this.textField.offset().left + (this.textField.outerHeight() - this.textField.innerHeight()) / 2) + 'px',
-			'width': this.textField.outerWidth() + 'px',
+			'width': this.textField.width() + 'px',
 			'height': this.textField.outerHeight() + 'px'
 		});
 
