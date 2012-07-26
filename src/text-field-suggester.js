@@ -31,6 +31,7 @@ if (typeof Sensis === 'undefined')
 		this.bestSuggestion = '';
 		this.lastValue = '';
 		this.lastValueWithCompletion = '';
+		this.updateOnNextFocus = true;
 
 		this.completion = this.createCompletion();
 		this.suggestionList = this.createSuggestionList();
@@ -40,9 +41,13 @@ if (typeof Sensis === 'undefined')
 		this.reposition();
 		this.updateSuggestions();
 
-		this.textField.focus(function () {
-			that.fetchSuggestions(that.textField.val());
-			that.updateSuggestions();
+		this.textField.focus(function (e) {
+			if (that.updateOnNextFocus) {
+				that.fetchSuggestions(that.textField.val());
+				that.updateSuggestions();
+			}
+
+			that.bestSuggestion = that.textField.val();
 			that.reportValueUpdated(that.textField.val());
 		});
 
@@ -51,6 +56,7 @@ if (typeof Sensis === 'undefined')
 				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			that.lastValue = that.textField.val();
 			that.updateSuggestions();
+			that.updateOnNextFocus = true;
 		});
 
 		this.textField.keydown(function (e) {
@@ -65,6 +71,7 @@ if (typeof Sensis === 'undefined')
 
 			else {
 				value = that.textField.val();
+				that.updateOnNextFocus = true;
 
 				if (value.length < that.lastValue.length)
 					that.updateCompletion();
@@ -124,6 +131,10 @@ if (typeof Sensis === 'undefined')
 
 		$('.' + this.name + 'Suggestions .suggestion').mousedown(function () {
 			that.updateValue($(this).find('.label').text());
+			window.setTimeout(function () {
+				that.updateOnNextFocus = false;
+				that.textField.focus();
+			}, 1);
 		});
 	};
 
