@@ -52,13 +52,11 @@ if (typeof Sensis === 'undefined')
 		});
 
 		this.textField.blur(function () {
-			window.setTimeout(function () {
-				if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
-					that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
-				that.lastValue = that.textField.val();
-				that.updateSuggestions();
-				that.updateOnNextFocus = true;
-			}, 1);
+			if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
+				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
+			that.lastValue = that.textField.val();
+			that.updateSuggestions();
+			that.updateOnNextFocus = true;
 		});
 
 		this.textField.keydown(function (e) {
