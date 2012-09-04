@@ -87,6 +87,9 @@ if (typeof Sensis === 'undefined')
 
 					// Up arrow
 					case 38:
+						if (that.suggestionList.css('display') === 'none')
+							return;
+
 						if (that.selectedSuggestionIndex >= 0) {
 							if (--that.selectedSuggestionIndex < 0)
 								that.selectedSuggestionIndex = -1;
@@ -98,6 +101,9 @@ if (typeof Sensis === 'undefined')
 
 					// Down arrow
 					case 40:
+						if (that.suggestionList.css('display') === 'none')
+							return;
+
 						if (that.selectedSuggestionIndex >= 0) {
 							if (++that.selectedSuggestionIndex >= that.suggestions.length)
 								that.selectedSuggestionIndex = -1;
