@@ -32,11 +32,6 @@ $(document).ready(function () {
 			textField.trigger(new jQuery.Event('keyup', { keyCode: 13 }));
 		};
 
-		function pressTab() {
-			textField.trigger(new jQuery.Event('keydown', { keyCode: 9 }));
-			textField.trigger(new jQuery.Event('keyup', { keyCode: 9 }));
-		};
-
 		function enterText(text) {
 			var code,
 				i;
@@ -185,7 +180,7 @@ $(document).ready(function () {
 				}, 1000);
 			});
 
-			it('should set the text to the full completion when Tab is pressed', function () {
+			it('should set the text to the full completion when the text field is blurred', function () {
 				var suffix = $('.theTextFieldCompletion .suffix');
 
 				runs(function () {
@@ -198,7 +193,7 @@ $(document).ready(function () {
 				});
 
 				runs(function () {
-					pressTab();
+					textField.blur();
 				});
 
 				waitsFor(function () {
@@ -206,7 +201,7 @@ $(document).ready(function () {
 				}, 1000);
 			});
 
-			it('should not set the text to the full completion if it isn\'t a prefix when Tab is pressed', function () {
+			it('should not set the text to the full completion if it isn\'t a prefix when the text field is blurred', function () {
 				var suffix = $('.theTextFieldCompletion .suffix');
 
 				runs(function () {
@@ -221,7 +216,7 @@ $(document).ready(function () {
 				runs(function () {
 					deleteText();
 					enterText('p');
-					pressTab();
+					textField.blur();
 				});
 
 				waitsFor(function () {
@@ -243,27 +238,6 @@ $(document).ready(function () {
 
 				runs(function () {
 					pressEnter();
-				});
-
-				waitsFor(function () {
-					return suffix.text() === '';
-				});
-			});
-
-			it('should cancel the completion when the text field is blurred', function () {
-				var suffix = $('.theTextFieldCompletion .suffix');
-
-				runs(function () {
-					deleteText();
-					enterText('ap');
-				});
-
-				waitsFor(function () {
-					return suffix.text() === 'ple';
-				});
-
-				runs(function () {
-					textField.blur();
 				});
 
 				waitsFor(function () {

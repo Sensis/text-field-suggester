@@ -52,9 +52,10 @@ if (typeof Sensis === 'undefined')
 		});
 
 		this.textField.blur(function () {
-			that.cancelCompletion();
-			that.hideSuggestions();
+			if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
+				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			that.lastValue = that.textField.val();
+			that.updateSuggestions();
 			that.updateOnNextFocus = true;
 		});
 
@@ -66,12 +67,6 @@ if (typeof Sensis === 'undefined')
 				e.preventDefault();
 				that.cancelCompletion();
 				that.hideSuggestions();
-			}
-
-			// Tab key pressed
-			else if (e.keyCode === 9) {
-				if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
-					that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			}
 
 			else {
