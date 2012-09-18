@@ -52,26 +52,21 @@ if (typeof Sensis === 'undefined')
 		});
 
 		this.textField.blur(function () {
-			that.cancelCompletion();
-			that.hideSuggestions();
+			if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
+				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			that.lastValue = that.textField.val();
+			that.updateSuggestions();
 			that.updateOnNextFocus = true;
 		});
 
 		this.textField.keydown(function (e) {
 			var value;
 
-			// Enter key pressed
-			if (e.keyCode === 13) {
+			// Enter/Esc/Del key pressed
+			if (e.keyCode === 13 || e.keyCode === 27 || e.keyCode === 46) {
 				e.preventDefault();
 				that.cancelCompletion();
 				that.hideSuggestions();
-			}
-
-			// Tab key pressed
-			else if (e.keyCode === 9) {
-				if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
-					that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
 			}
 
 			else {
