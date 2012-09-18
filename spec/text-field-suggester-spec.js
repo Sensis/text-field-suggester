@@ -27,9 +27,19 @@ $(document).ready(function () {
 			textField.trigger(new jQuery.Event('keyup', { keyCode: 8 }));
 		};
 
+		function pressDelete() {
+			textField.trigger(new jQuery.Event('keydown', { keyCode: 46 }));
+			textField.trigger(new jQuery.Event('keyup', { keyCode: 46 }));
+		};
+
 		function pressEnter() {
 			textField.trigger(new jQuery.Event('keydown', { keyCode: 13 }));
 			textField.trigger(new jQuery.Event('keyup', { keyCode: 13 }));
+		};
+
+		function pressEscape() {
+			textField.trigger(new jQuery.Event('keydown', { keyCode: 27 }));
+			textField.trigger(new jQuery.Event('keyup', { keyCode: 27 }));
 		};
 
 		function enterText(text) {
@@ -412,6 +422,48 @@ $(document).ready(function () {
 
 				runs(function () {
 					pressEnter();
+				});
+
+				waitsFor(function () {
+					return suggestionList.css('display') === 'none';
+				}, 1000);
+			});
+
+			it('should hide the suggestions when Escape is pressed in the text field', function () {
+				var items = suggestionList.find('.suggestion');
+
+				runs(function () {
+					deleteText();
+					enterText('ap');
+				});
+
+				waitsFor(function () {
+					return $(items[1]).css('display') === 'block' && $(items[2]).css('display') === 'none';
+				}, 1000);
+
+				runs(function () {
+					pressEscape();
+				});
+
+				waitsFor(function () {
+					return suggestionList.css('display') === 'none';
+				}, 1000);
+			});
+
+			it('should hide the suggestions when Delete is pressed in the text field', function () {
+				var items = suggestionList.find('.suggestion');
+
+				runs(function () {
+					deleteText();
+					enterText('ap');
+				});
+
+				waitsFor(function () {
+					return $(items[1]).css('display') === 'block' && $(items[2]).css('display') === 'none';
+				}, 1000);
+
+				runs(function () {
+					pressDelete();
 				});
 
 				waitsFor(function () {

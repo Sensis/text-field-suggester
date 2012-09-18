@@ -62,8 +62,8 @@ if (typeof Sensis === 'undefined')
 		this.textField.keydown(function (e) {
 			var value;
 
-			// Enter key pressed
-			if (e.keyCode === 13) {
+			// Enter/Esc/Del key pressed
+			if (e.keyCode === 13 || e.keyCode === 27 || e.keyCode === 46) {
 				e.preventDefault();
 				that.cancelCompletion();
 				that.hideSuggestions();
