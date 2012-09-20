@@ -62,9 +62,15 @@ if (typeof Sensis === 'undefined')
 		this.textField.keydown(function (e) {
 			var value;
 
-			// Enter/Esc/Del key pressed
-			if (e.keyCode === 13 || e.keyCode === 27 || e.keyCode === 46) {
+			// Enter/Esc key pressed
+			if (e.keyCode === 13 || e.keyCode === 27) {
 				e.preventDefault();
+				that.cancelCompletion();
+				that.hideSuggestions();
+			}
+
+			// Del key pressed
+			else if (e.keyCode === 46) {
 				that.cancelCompletion();
 				that.hideSuggestions();
 			}
