@@ -52,11 +52,7 @@ if (typeof Sensis === 'undefined')
 		});
 
 		this.textField.blur(function () {
-			if (that.textField.val() !== '' && that.bestSuggestion.toLowerCase().indexOf(that.textField.val().toLowerCase()) === 0)
-				that.textField.val(that.textField.val() + that.bestSuggestion.substring(that.textField.val().length));
-			that.lastValue = that.textField.val();
-			that.updateSuggestions();
-			that.updateOnNextFocus = true;
+			that.acceptCompletion();
 		});
 
 		this.textField.keydown(function (e) {
@@ -73,6 +69,14 @@ if (typeof Sensis === 'undefined')
 			else if (e.keyCode === 46) {
 				that.cancelCompletion();
 				that.hideSuggestions();
+			}
+
+			// Tab key pressed
+			else if (e.keyCode === 9) {
+				if (that.completion.find('.suffix').text().length > 0) {
+					e.preventDefault();
+					that.acceptCompletion();
+				}
 			}
 
 			else {
@@ -150,11 +154,27 @@ if (typeof Sensis === 'undefined')
 		});
 	};
 
+	Sensis.TextFieldSuggester.prototype.acceptCompletion = function () {
+		if (this.textField.val() !== '' && this.bestSuggestion.toLowerCase().indexOf(this.textField.val().toLowerCase()) === 0)
+			this.textField.val(this.textField.val() + this.bestSuggestion.substring(this.textField.val().length));
+		this.lastValue = this.textField.val();
+		this.updateSuggestions();
+		this.updateOnNextFocus = true;
+	};
+
 	Sensis.TextFieldSuggester.prototype.cancelCompletion = function () {
 		var value = this.textField.val();
 		this.bestSuggestion = value;
+		this.cancelFetchingSuggestions();
 		this.updateCompletion();
 		this.reportValueUpdated(value);
+	};
+
+	Sensis.TextFieldSuggester.prototype.cancelFetchingSuggestions = function () {
+		if (this.suggestionUpdateTimeout) {
+			window.clearTimeout(this.suggestionUpdateTimeout);
+			this.suggestionUpdateTimeout = null;
+		}
 	};
 
 	Sensis.TextFieldSuggester.prototype.createCompletion = function () {
@@ -228,10 +248,7 @@ if (typeof Sensis === 'undefined')
 	Sensis.TextFieldSuggester.prototype.fetchSuggestions = function (value) {
 		var that = this;
 
-		if (this.suggestionUpdateTimeout) {
-			window.clearTimeout(this.suggestionUpdateTimeout);
-			this.suggestionUpdateTimeout = null;
-		}
+		this.cancelFetchingSuggestions();
 
 		this.suggestionUpdateTimeout = window.setTimeout(function () {
 			that.suggestionFetchFunc(value, function (suggestions) {

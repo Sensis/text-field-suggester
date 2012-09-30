@@ -42,6 +42,11 @@ $(document).ready(function () {
 			textField.trigger(new jQuery.Event('keyup', { keyCode: 27 }));
 		};
 
+		function pressTab() {
+			textField.trigger(new jQuery.Event('keydown', { keyCode: 9 }));
+			textField.trigger(new jQuery.Event('keyup', { keyCode: 9 }));
+		};
+
 		function enterText(text) {
 			var code,
 				i;
@@ -208,6 +213,31 @@ $(document).ready(function () {
 
 				waitsFor(function () {
 					return textField.val() === 'apple';
+				}, 1000);
+			});
+
+			it('should set the text to the full completion without changing focus when tab is pressed', function () {
+				var suffix = $('.theTextFieldCompletion .suffix');
+
+				runs(function () {
+					deleteText();
+					enterText('a');
+				});
+
+				waitsFor(function () {
+					return suffix.text() === 'pple';
+				});
+
+				runs(function () {
+					pressTab();
+				});
+
+				waitsFor(function () {
+					return textField.val() === 'apple';
+				}, 1000);
+
+				waitsFor(function () {
+					return document.activeElement === textField[0];
 				}, 1000);
 			});
 
