@@ -82,9 +82,6 @@ if (typeof Sensis === 'undefined')
 			else {
 				value = that.textField.val();
 				that.updateOnNextFocus = true;
-
-				if (value.length < that.lastValue.length)
-					that.updateCompletion();
 			}
 		});
 
