@@ -29,7 +29,7 @@ if (typeof Sensis === 'undefined')
 		this.suggestionUpdateTimeout = null;
 		this.selectedSuggestionIndex = -1;
 		this.bestSuggestion = '';
-		this.lastValue = '';
+		this.lastValue = null;
 		this.lastValueWithCompletion = '';
 		this.updateOnNextFocus = true;
 
