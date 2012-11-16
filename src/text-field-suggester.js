@@ -71,14 +71,6 @@ if (typeof Sensis === 'undefined')
 				that.hideSuggestions();
 			}
 
-			// Tab key pressed
-			else if (e.keyCode === 9) {
-				if (that.completion.find('.suffix').text().length > 0) {
-					e.preventDefault();
-					that.acceptCompletion();
-				}
-			}
-
 			else {
 				value = that.textField.val();
 				that.updateOnNextFocus = true;
