@@ -29,7 +29,7 @@ if (typeof Sensis === 'undefined')
 		this.suggestionUpdateTimeout = null;
 		this.selectedSuggestionIndex = -1;
 		this.bestSuggestion = '';
-		this.lastValue = '';
+		this.lastValue = null;
 		this.lastValueWithCompletion = '';
 		this.updateOnNextFocus = true;
 
@@ -69,14 +69,6 @@ if (typeof Sensis === 'undefined')
 			else if (e.keyCode === 46) {
 				that.cancelCompletion();
 				that.hideSuggestions();
-			}
-
-			// Tab key pressed
-			else if (e.keyCode === 9) {
-				if (that.completion.find('.suffix').text().length > 0) {
-					e.preventDefault();
-					that.acceptCompletion();
-				}
 			}
 
 			else {
