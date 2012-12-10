@@ -71,6 +71,11 @@ if (typeof Sensis === 'undefined')
 				that.hideSuggestions();
 			}
 
+			// Tab key pressed
+			else if (e.keyCode === 9) {
+				that.cancelCompletion();
+			}
+
 			else {
 				value = that.textField.val();
 				that.updateOnNextFocus = true;
