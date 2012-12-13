@@ -58,6 +58,7 @@ $(document).ready(function () {
 				textField.val(textField.val() + text.charAt(i));
 				textField.trigger(new jQuery.Event('keydown', { keyCode: code }));
 				textField.trigger(new jQuery.Event('keyup', { keyCode: code }));
+				textField.trigger(new jQuery.Event('input', { keyCode: code }));
 			}
 		};
 
