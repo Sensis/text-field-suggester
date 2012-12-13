@@ -82,6 +82,20 @@ if (typeof Sensis === 'undefined')
 			}
 		});
 
+		var valueUpdating = function (event) {
+			var value = that.textField.val();
+
+			if (value !== that.lastValue) {
+				that.lastValue = value;
+
+				that.fetchSuggestions(value);
+				that.updateCompletion();
+
+				if (!that.suggestionUpdateTimeout)
+					that.reportValueUpdated(value);
+			}
+		};
+
 		this.textField.keyup(function (event) {
 			var value = that.textField.val();
 
@@ -124,14 +138,10 @@ if (typeof Sensis === 'undefined')
 				}
 			}
 
-			that.lastValue = value;
-
-			that.fetchSuggestions(value);
-			that.updateCompletion();
-
-			if (!that.suggestionUpdateTimeout)
-				that.reportValueUpdated(value);
+			valueUpdating(event);
 		});
+
+		this.textField.bind('input', valueUpdating);
 
 		// Focus on the text field when the completion overlay is clicked, for
 		// browsers that don't support CSS pointer-events property.
